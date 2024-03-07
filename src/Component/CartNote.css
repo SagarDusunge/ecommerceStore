@@ -1,0 +1,23 @@
+.cart_counter {
+    height: 20px;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.cart_counter span {
+    margin-left: 0px;
+    padding-left: 0px;
+    position: relative;
+    right: 28px;
+    font-size: large;
+}
+
+.cart_icon {
+    scale: 0.3;
+    margin: 0;
+    margin-right: 0px;
+    padding-right: 0px;
+}

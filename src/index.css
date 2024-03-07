@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+  
+.loginform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginform input {
+  margin: 5px;
+  height: 3vh;
+  width: 30vw;
+  border: 2px solid groove;
+  border-radius: 5px;
+}
+
+.loginform input[ type='submit'] {
+  width: 100px;
+}
+
+.loginform label {
+  font-size: large;
+}
+
+.input_error {
+  color: firebrick;
+  font-size: small !important;
+  align-self: flex-start;
+  padding-left: 0.6vw;
+}
