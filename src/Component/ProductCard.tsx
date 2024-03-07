@@ -10,6 +10,7 @@ type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { id, title, price, image } = product;
   const dispatch = useDispatch();
+
   const handleAddToCart = (
     id: number,
     title: string,

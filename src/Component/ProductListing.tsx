@@ -25,12 +25,21 @@ const ProductListingPage: React.FC = () => {
   const displayCart: boolean = useSelector(
     (state: RootState) => state?.displayCart
   );
+  let itemsPerPage = 4;
+  let lastIndex: number =
+    currentPage * itemsPerPage > products.length
+      ? products.length
+      : currentPage * itemsPerPage + 1;
+  let startingIndex: number = lastIndex - itemsPerPage;
+  const currentItem = products.slice(startingIndex, lastIndex);
+
   const returnToHomeHandler = () => {
     dispatch({
       type: "TOGGLE_CART",
       payload: false,
     });
   };
+
   useEffect(() => {
     // Fetch products from API or any data source
     const fetchProducts = async () => {
@@ -44,13 +53,6 @@ const ProductListingPage: React.FC = () => {
     };
     fetchProducts();
   }, []);
-  let itemsPerPage = 4;
-  let lastIndex: number =
-    currentPage * itemsPerPage > products.length
-      ? products.length
-      : currentPage * itemsPerPage + 1;
-  let startingIndex: number = lastIndex - itemsPerPage;
-  const currentItem = products.slice(startingIndex, lastIndex);
 
   return (
     <div style={{ width: "100% " }}>

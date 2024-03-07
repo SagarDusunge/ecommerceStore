@@ -6,6 +6,7 @@ import { RootState } from "./../Store/store.tsx";
 const CartNote: React.FC = () => {
   const count = useSelector((state: RootState) => state?.cartItems.length);
   const dispatch = useDispatch();
+
   const cartClickHandler = (e: React.MouseEvent) => {
     if ((e.target as HTMLInputElement).id === "cart") {
       dispatch({
@@ -14,6 +15,7 @@ const CartNote: React.FC = () => {
       });
     }
   };
+
   return (
     <div
       className="cart_counter"
