@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Cart from "./Cart.tsx";
 import { RootState } from "../Store/store.tsx";
 import fetchProducts from "../Util/fetchHelper.tsx";
+import usePagination from "../customHooks/usePagination.tsx";
 
 export type Product = {
   id: number;
@@ -21,20 +22,17 @@ export type Product = {
 
 const ProductListingPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const dispatch = useDispatch();
   const displayCart: boolean = useSelector(
     (state: RootState) => state?.displayCart
   );
   const itemsPerPage = 4;
-  const lastIndex: number =
-    currentPage * itemsPerPage > products.length
-      ? products.length
-      : currentPage * itemsPerPage + 1;
-  const startingIndex: number = lastIndex - itemsPerPage;
-  const currentItem = products.slice(startingIndex, lastIndex);
-
-  const productToDisplay = displayCart ? (
+  const { currentItem, currentPage, updatePage } = usePagination(
+    products,
+    itemsPerPage
+  );
+  console.log("product listing rendered")
+  const productsToDisplay = displayCart ? (
     <Cart />
   ) : currentItem.length ? (
     <div className="product-list">
@@ -66,19 +64,17 @@ const ProductListingPage: React.FC = () => {
   return (
     <div style={{ width: "100% " }}>
       <h1 onClick={returnToHomeHandler}>SagaMart</h1>
-      {productToDisplay}
+      {productsToDisplay}
       <button
         onClick={() => {
-          currentPage > 1 && setCurrentPage((prevpage) => prevpage - 1);
+          updatePage(currentPage - 1);
         }}
       >
         {currentPage}
       </button>
       <button
         onClick={() => {
-          if (currentPage * itemsPerPage < products.length) {
-            setCurrentPage((prevpage) => prevpage + 1);
-          }
+          updatePage(currentPage + 1);
         }}
       >
         {currentPage + 1}
