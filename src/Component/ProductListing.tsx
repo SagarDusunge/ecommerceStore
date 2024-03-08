@@ -39,6 +39,20 @@ const ProductListingPage: React.FC = () => {
       {currentItem.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
+      <button
+        onClick={() => {
+          updatePage(currentPage - 1);
+        }}
+      >
+        {currentPage}
+      </button>
+      <button
+        onClick={() => {
+          updatePage(currentPage + 1);
+        }}
+      >
+        {currentPage + 1}
+      </button>
     </div>
   ) : (
     <p>
@@ -65,20 +79,6 @@ const ProductListingPage: React.FC = () => {
     <div style={{ width: "100% " }}>
       <h1 onClick={returnToHomeHandler}>SagaMart</h1>
       {productsToDisplay}
-      <button
-        onClick={() => {
-          updatePage(currentPage - 1);
-        }}
-      >
-        {currentPage}
-      </button>
-      <button
-        onClick={() => {
-          updatePage(currentPage + 1);
-        }}
-      >
-        {currentPage + 1}
-      </button>
     </div>
   );
 };
