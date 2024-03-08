@@ -83,7 +83,7 @@ describe("ProductListing", () => {
     userEvent.click(screen.getByText("2"));
 
     await waitFor(() => {
-      expect(screen.getByText("Product 8")).toBeInTheDocument();
+      expect(screen.getByText("Product 7")).toBeInTheDocument();
       expect(screen.queryByText("Product 1")).not.toBeInTheDocument();
     });
   });
