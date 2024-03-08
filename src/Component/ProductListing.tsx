@@ -4,6 +4,7 @@ import "./ProductListing.css";
 import { useDispatch, useSelector } from "react-redux";
 import Cart from "./Cart.tsx";
 import { RootState } from "../Store/store.tsx";
+import fetchProducts from "../Util/fetchHelper.tsx";
 
 export type Product = {
   id: number;
@@ -25,13 +26,28 @@ const ProductListingPage: React.FC = () => {
   const displayCart: boolean = useSelector(
     (state: RootState) => state?.displayCart
   );
-  let itemsPerPage = 4;
-  let lastIndex: number =
+  const itemsPerPage = 4;
+  const lastIndex: number =
     currentPage * itemsPerPage > products.length
       ? products.length
       : currentPage * itemsPerPage + 1;
-  let startingIndex: number = lastIndex - itemsPerPage;
+  const startingIndex: number = lastIndex - itemsPerPage;
   const currentItem = products.slice(startingIndex, lastIndex);
+
+  const productToDisplay = displayCart ? (
+    <Cart />
+  ) : currentItem.length ? (
+    <div className="product-list">
+      {currentItem.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  ) : (
+    <p>
+      Error fetching products...please check you Internet connection and try
+      again{" "}
+    </p>
+  );
 
   const returnToHomeHandler = () => {
     dispatch({
@@ -42,30 +58,15 @@ const ProductListingPage: React.FC = () => {
 
   useEffect(() => {
     // Fetch products from API or any data source
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("https://fakestoreapi.com/products");
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
+    fetchProducts("https://fakestoreapi.com/products").then(
+      (data) => data && setProducts(data)
+    );
   }, []);
 
   return (
     <div style={{ width: "100% " }}>
       <h1 onClick={returnToHomeHandler}>SagaMart</h1>
-      {displayCart ? (
-        <Cart />
-      ) : (
-        <div className="product-list">
-          {currentItem.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
+      {productToDisplay}
       <button
         onClick={() => {
           currentPage > 1 && setCurrentPage((prevpage) => prevpage - 1);
@@ -73,17 +74,15 @@ const ProductListingPage: React.FC = () => {
       >
         {currentPage}
       </button>
-      {
-        <button
-          onClick={() => {
-            if (currentPage * itemsPerPage < products.length) {
-              setCurrentPage((prevpage) => prevpage + 1);
-            }
-          }}
-        >
-          {currentPage + 1}
-        </button>
-      }
+      <button
+        onClick={() => {
+          if (currentPage * itemsPerPage < products.length) {
+            setCurrentPage((prevpage) => prevpage + 1);
+          }
+        }}
+      >
+        {currentPage + 1}
+      </button>
     </div>
   );
 };

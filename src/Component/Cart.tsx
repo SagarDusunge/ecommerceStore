@@ -7,14 +7,15 @@ import { Product } from "./ProductListing";
 const Cart: React.FC = () => {
   const addedcartItems = useSelector((state: RootState) => state.cartItems);
   const cartItems = addedcartItems.filter((item: Product) => item.id);
-
-  return (
-    <div className="product-list">
-      {cartItems.map((product: Product) => (
+  const displayCartItems =
+    cartItems.length > 0 ? (
+      cartItems.map((product: Product) => (
         <ProductCard key={product.id} product={product} />
-      ))}
-    </div>
-  );
+      ))
+    ) : (
+      <p> Cart is Empty</p>
+    );
+  return <div className="product-list">{displayCartItems}</div>;
 };
 
 export default Cart;
