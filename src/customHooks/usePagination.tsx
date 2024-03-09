@@ -18,7 +18,11 @@ const usePagination = (
       currentPage <= 0
         ? 1
         : Math.min(currentPage * itemsPerPage, products.length);
-    const startingIndex = lastIndex - itemsPerPage;
+    const startingIndex = Math.max(
+      0,
+      currentPage * itemsPerPage - itemsPerPage
+    );
+
     const currentItem = products.slice(startingIndex, lastIndex);
     return { currentItem };
   }, [currentPage, products, itemsPerPage]);

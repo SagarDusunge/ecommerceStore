@@ -1,0 +1,9 @@
+.navbar_app {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navbar_app h1 {
+    margin: 5px;
+    padding: 2px;
+}

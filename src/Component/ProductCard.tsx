@@ -32,6 +32,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="productInfo">
           <label>{title}</label>
           <label>&#x20B9;{price}</label>
+          {product.cartCount && product.cartCount > 1 && (
+            <span>Quantity: {product.cartCount}</span>
+          )}
           <button
             onClick={(e) => {
               handleAddToCart(id, title, price, image);
