@@ -21,7 +21,8 @@
     height: 10vh;
 }
 
-.productCard label {
+.productCard label,
+.productCard span {
     margin: 5px;
     padding: 5px;
     overflow: hidden;

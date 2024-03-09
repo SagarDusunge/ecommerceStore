@@ -18,6 +18,7 @@ export type Product = {
     rate: number;
     count: number;
   };
+  cartCount?: number;
 };
 
 const ProductListingPage: React.FC = () => {
@@ -31,7 +32,6 @@ const ProductListingPage: React.FC = () => {
     products,
     itemsPerPage
   );
-  console.log("product listing rendered")
   const productsToDisplay = displayCart ? (
     <Cart />
   ) : currentItem.length ? (
@@ -39,34 +39,26 @@ const ProductListingPage: React.FC = () => {
       {currentItem.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-      <button
-        onClick={() => {
-          updatePage(currentPage - 1);
-        }}
-      >
-        {currentPage}
-      </button>
-      <button
-        onClick={() => {
-          updatePage(currentPage + 1);
-        }}
-      >
-        {currentPage + 1}
-      </button>
+      <div className="productList-button">
+        <button
+          onClick={() => {
+            updatePage(currentPage - 1);
+          }}
+        >
+          {currentPage}
+        </button>
+        <button
+          onClick={() => {
+            updatePage(currentPage + 1);
+          }}
+        >
+          {currentPage + 1}
+        </button>
+      </div>
     </div>
   ) : (
-    <p>
-      Error fetching products...please check you Internet connection and try
-      again{" "}
-    </p>
+    <p>Fetching products.....</p>
   );
-
-  const returnToHomeHandler = () => {
-    dispatch({
-      type: "TOGGLE_CART",
-      payload: false,
-    });
-  };
 
   useEffect(() => {
     // Fetch products from API or any data source
@@ -75,12 +67,7 @@ const ProductListingPage: React.FC = () => {
     );
   }, []);
 
-  return (
-    <div style={{ width: "100% " }}>
-      <h1 onClick={returnToHomeHandler}>SagaMart</h1>
-      {productsToDisplay}
-    </div>
-  );
+  return <div style={{ width: "100% " }}>{productsToDisplay}</div>;
 };
 
 export default ProductListingPage;
