@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard.tsx";
 import "./ProductListing.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Cart from "./Cart.tsx";
 import { RootState } from "../Store/store.tsx";
 import fetchProducts from "../Util/fetchHelper.tsx";
@@ -23,7 +23,6 @@ export type Product = {
 
 const ProductListingPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const dispatch = useDispatch();
   const displayCart: boolean = useSelector(
     (state: RootState) => state?.displayCart
   );

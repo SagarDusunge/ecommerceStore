@@ -25,7 +25,7 @@ const Cart: React.FC = () => {
           cartCount: 1,
         }; // Initialize if not present
       } else {
-        acc[product.id].cartCount! += 1; // Increment cartCount for duplicates
+        acc[product.id].cartCount = (acc[product.id].cartCount ?? 0) + 1; // Increment cartCount for duplicates
       }
       return acc;
     }, {} as Record<number, Product>)
