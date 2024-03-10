@@ -11,7 +11,7 @@ const CartItemCard: React.FC<CartItemCardProps> = ({ product }) => {
 
   return (
     <>
-      <div className="productCard">
+      <div className="cartCard">
         <div className="imageContainer">
           <img loading="lazy" src={image} alt="productImg"></img>
         </div>

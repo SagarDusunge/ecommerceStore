@@ -1,20 +1,29 @@
 import React from "react";
 import CartItemCard from "./CartItemCard.tsx";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../Store/store.tsx";
 import { Product } from "./ProductListing";
 import usePagination from "../customHooks/usePagination.tsx";
 
 const Cart: React.FC = () => {
+  const dispatch = useDispatch();
   const addedcartItems: Product[] = useSelector(
     (state: RootState) => state.cartItems
   );
-
+  const clearCartHandler = () => {
+    if (!addedcartItems.length) return;
+    dispatch({
+      type: "CLEAR_CART",
+    });
+  };
   // Aggregate products by id and count duplicates as cartCount
   const aggregatedItems: Product[] = Object.values(
     addedcartItems.reduce((acc, product) => {
       if (!acc[product.id]) {
-        acc[product.id] = { ...product, cartCount: 1 }; // Initialize if not present
+        acc[product.id] = {
+          ...JSON.parse(JSON.stringify(product)), // we can use clonedeep from lodash
+          cartCount: 1,
+        }; // Initialize if not present
       } else {
         acc[product.id].cartCount! += 1; // Increment cartCount for duplicates
       }
@@ -38,25 +47,28 @@ const Cart: React.FC = () => {
       <p> Cart is Empty</p>
     );
   return (
-    <div className="product-list">
-      {displayCartItems}
-      <div className="productList-button">
-        <button
-          onClick={() => {
-            updatePage(currentPage - 1);
-          }}
-        >
-          {currentPage}
-        </button>
-        <button
-          onClick={() => {
-            updatePage(currentPage + 1);
-          }}
-        >
-          {currentPage + 1}
-        </button>
+    <>
+      <div className="product-list">
+        {displayCartItems}
+        <div className="productList-button">
+          <button
+            onClick={() => {
+              updatePage(currentPage - 1);
+            }}
+          >
+            {currentPage}
+          </button>
+          <button
+            onClick={() => {
+              updatePage(currentPage + 1);
+            }}
+          >
+            {currentPage + 1}
+          </button>
+        </div>
       </div>
-    </div>
+      <button onClick={clearCartHandler}>Clear Cart</button>
+    </>
   );
 };
 

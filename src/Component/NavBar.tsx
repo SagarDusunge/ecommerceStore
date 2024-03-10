@@ -6,7 +6,6 @@ const Navbar = () => {
   const returnToHomeHandler = () => {
     dispatch({
       type: "TOGGLE_CART",
-      payload: false,
     });
   };
 
