@@ -36,7 +36,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <span>Quantity: {product.cartCount}</span>
           )}
           <button
-            onClick={(e) => {
+            onClick={() => {
               handleAddToCart(id, title, price, image);
             }}
           >

@@ -1,15 +1,21 @@
-import { Product } from "../Component/ProductListing";
 import { RootState } from "./store";
+
 type Action = {
   type: string;
-  payload: {
-    cartItems: Product[];
-    displayCart: boolean;
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload?: any;
 };
 
-const cartreducer: any = (state: RootState, action: Action) => {
-  switch (action?.type) {
+const initialState: RootState = {
+  cartItems: [],
+  displayCart: false,
+};
+
+const cartReducer = (
+  state: RootState = initialState,
+  action: Action
+): RootState => {
+  switch (action.type) {
     case "ADD_ITEM":
       return { ...state, cartItems: [...state.cartItems, action.payload] };
     case "CLEAR_CART":
@@ -21,4 +27,4 @@ const cartreducer: any = (state: RootState, action: Action) => {
   }
 };
 
-export default cartreducer;
+export default cartReducer;
