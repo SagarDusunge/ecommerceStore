@@ -49,7 +49,6 @@ describe("ProductListing", () => {
         <ProductListing />
       </Provider>
     );
-
     await waitFor(() => {
       expect(screen.getByText("Product 1")).toBeInTheDocument();
       expect(screen.getByText("Product 2")).toBeInTheDocument();

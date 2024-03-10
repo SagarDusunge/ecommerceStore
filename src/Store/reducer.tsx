@@ -12,6 +12,8 @@ const cartreducer: any = (state: RootState, action: Action) => {
   switch (action?.type) {
     case "ADD_ITEM":
       return { ...state, cartItems: [...state.cartItems, action.payload] };
+    case "CLEAR_CART":
+      return { ...state, cartItems: [] };
     case "TOGGLE_CART":
       return { ...state, displayCart: action.payload };
     default:
