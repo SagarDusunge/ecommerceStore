@@ -27,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <>
       <div className="productCard">
         <div className="imageContainer">
-          <img loading="lazy" src={image} alt="productImg"></img>
+          <img src={image} alt="productImg"></img>
         </div>
         <div className="productInfo">
           <label>{title}</label>

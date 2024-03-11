@@ -7,10 +7,12 @@ import usePagination from "../customHooks/usePagination.tsx";
 
 const Cart: React.FC = () => {
   const ResetPageNo = 1;
+  const itemsPerPage = 3;
   const dispatch = useDispatch();
   const addedcartItems: Product[] = useSelector(
     (state: RootState) => state.cartItems
   );
+
   const clearCartHandler = () => {
     if (!addedcartItems.length) return;
     dispatch({
@@ -18,6 +20,7 @@ const Cart: React.FC = () => {
     });
     updatePage(ResetPageNo);
   };
+
   // Aggregate products by id and count duplicates as cartCount
   const aggregatedItems: Product[] = Object.values(
     addedcartItems.reduce((acc, product) => {
@@ -33,7 +36,6 @@ const Cart: React.FC = () => {
     }, {} as Record<number, Product>)
   );
 
-  const itemsPerPage = 3;
   const { currentItem, currentPage, updatePage } = usePagination(
     aggregatedItems,
     itemsPerPage
@@ -48,6 +50,7 @@ const Cart: React.FC = () => {
     ) : (
       <p> Cart is Empty</p>
     );
+
   return (
     <>
       <div className="product-list">
