@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../Store/store.tsx";
 import { Product } from "./ProductListing";
 import usePagination from "../customHooks/usePagination.tsx";
+import "./Cart.css";
 
 const Cart: React.FC = () => {
   const ResetPageNo = 1;
@@ -41,6 +42,24 @@ const Cart: React.FC = () => {
     itemsPerPage
   );
 
+  const cartButtonElements = (
+    <div className="productList-button">
+      <button
+        onClick={() => {
+          addedcartItems.length && updatePage(currentPage - 1);
+        }}
+      >
+        {currentPage}
+      </button>
+      <button
+        onClick={() => {
+          addedcartItems.length && updatePage(currentPage + 1);
+        }}
+      >
+        {currentPage + 1}
+      </button>
+    </div>
+  );
   // Rest of the component remains the same...
   const displayCartItems =
     currentItem.length > 0 ? (
@@ -48,31 +67,16 @@ const Cart: React.FC = () => {
         <CartItemCard key={product.id} product={product} />
       ))
     ) : (
-      <p> Cart is Empty</p>
+      <p>Your cart is Empty</p>
     );
 
   return (
     <>
-      <div className="product-list">
-        {displayCartItems}
-        <div className="productList-button">
-          <button
-            onClick={() => {
-              addedcartItems.length && updatePage(currentPage - 1);
-            }}
-          >
-            {currentPage}
-          </button>
-          <button
-            onClick={() => {
-              addedcartItems.length && updatePage(currentPage + 1);
-            }}
-          >
-            {currentPage + 1}
-          </button>
-        </div>
-      </div>
-      <button onClick={clearCartHandler}>Clear Cart</button>
+      <div className="product-list">{displayCartItems}</div>
+      {currentItem.length ? cartButtonElements : null}
+      <button id="clear_cart" onClick={clearCartHandler}>
+        Clear Cart
+      </button>
     </>
   );
 };

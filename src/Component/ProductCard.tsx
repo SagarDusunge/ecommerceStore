@@ -30,7 +30,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <img src={image} alt="productImg"></img>
         </div>
         <div className="productInfo">
-          <label>{title}</label>
+          <label id="title">{title}</label>
           <label>&#x20B9;{price}</label>
           {product.cartCount && product.cartCount > 1 && (
             <span>Quantity: {product.cartCount}</span>
