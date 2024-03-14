@@ -11,7 +11,7 @@ const initialState: RootState = {
   displayCart: false,
 };
 
-const cartReducer = (
+const cartUpdateReducer = (
   state: RootState = initialState,
   action: Action
 ): RootState => {
@@ -27,4 +27,4 @@ const cartReducer = (
   }
 };
 
-export default cartReducer;
+export default cartUpdateReducer;
