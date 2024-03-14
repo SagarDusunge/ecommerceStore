@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
-import ProductListing from "./Component/ProductListing.tsx";
-import CartNote from "./Component/CartNote.tsx";
-import Navbar from "./Component/NavBar.tsx";
+import ProductListing from "./Component/ProductListing";
+import CartNote from "./Component/CartNote";
+import Navbar from "./Component/NavBar";
 
 function App() {
   return (

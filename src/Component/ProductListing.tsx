@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard.tsx";
+import ProductCard from "./ProductCard";
 import "./ProductListing.css";
 import { useSelector } from "react-redux";
-import Cart from "./Cart.tsx";
-import { RootState } from "../Store/store.tsx";
-import fetchProducts from "../Util/fetchHelper.tsx";
-import usePagination from "../customHooks/usePagination.tsx";
+import Cart from "./Cart";
+import { RootState } from "../Store/store";
+import fetchProducts from "../Util/fetchHelper";
+import usePagination from "../customHooks/usePagination";
 
 export type Product = {
   id: number;

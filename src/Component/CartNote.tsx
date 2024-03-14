@@ -1,7 +1,7 @@
 import React from "react";
 import "./CartNote.css";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./../Store/store.tsx";
+import { RootState } from "./../Store/store";
 
 const CartNote: React.FC = () => {
   const count = useSelector((state: RootState) => state?.cartItems.length);

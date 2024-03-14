@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ProductListing from "./ProductListing.tsx";
+import ProductListing from "./ProductListing";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import fetchMock from "jest-fetch-mock";

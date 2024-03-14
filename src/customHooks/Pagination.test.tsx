@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-import usePagination from "./usePagination.tsx"; // Adjust the import path as necessary
+import usePagination from "./usePagination";
 
 describe("usePagination Hook", () => {
   const products = Array.from({ length: 100 }, (_, index) => ({
@@ -37,14 +37,12 @@ describe("usePagination Hook", () => {
       result.current.updatePage(0); // Trying to set to a non-existent page
     });
 
-    // Expect it to either stay on the first page or handle the case gracefully
     expect(result.current.currentPage).toBe(1);
 
     act(() => {
       result.current.updatePage(11); // Beyond the total number of pages
     });
 
-    // Depending on implementation, ensure it handles this gracefully
     expect(result.current.currentPage).toBeLessThanOrEqual(10);
     expect(result.current.currentItem.length).toBeLessThanOrEqual(10);
   });
@@ -78,6 +76,6 @@ describe("usePagination Hook", () => {
 
     expect(result.current.currentPage).toBe(2);
     expect(result.current.currentItem.length).toBe(10);
-    expect(result.current.currentItem[0].id).toBe(10); // Assuming IDs start at 0
+    expect(result.current.currentItem[0].id).toBe(10);
   });
 });

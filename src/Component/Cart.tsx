@@ -1,9 +1,9 @@
 import React from "react";
-import CartItemCard from "./CartItemCard.tsx";
+import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../Store/store.tsx";
+import { RootState } from "../Store/store";
 import { Product } from "./ProductListing";
-import usePagination from "../customHooks/usePagination.tsx";
+import usePagination from "../customHooks/usePagination";
 import "./Cart.css";
 
 const Cart: React.FC = () => {
@@ -60,7 +60,7 @@ const Cart: React.FC = () => {
       </button>
     </div>
   );
-  // Rest of the component remains the same...
+
   const displayCartItems =
     currentItem.length > 0 ? (
       currentItem.map((product: Product) => (

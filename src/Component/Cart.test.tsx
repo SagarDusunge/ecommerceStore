@@ -2,9 +2,9 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import Cart from "./Cart"; // Adjust the import path according to your project structure
+import Cart from "./Cart";
 import "@testing-library/jest-dom/extend-expect";
-// Create a mock store for your test cases
+
 const mockStore = configureStore([]);
 const store = mockStore({
   cartItems: [
@@ -40,14 +40,11 @@ describe("Cart Component", () => {
     // Simulate clicking the "Clear Cart" button
     fireEvent.click(screen.getByText("Clear Cart"));
 
-    // Since the actual Redux action might not change the state in this mock setup,
-    // you would typically assert that the correct action was dispatched.
-    // For this, you can use the mock store's getActions method to check dispatched actions.
     const actions = store.getActions();
     expect(actions[0]).toEqual({ type: "CLEAR_CART" });
   });
 
-  it('does not clear cart when there are no items', () => {
+  it("does not clear cart when there are no items", () => {
     const emptyStore = mockStore({
       cartItems: [],
     });
@@ -58,12 +55,8 @@ describe("Cart Component", () => {
       </Provider>
     );
 
-    // Simulate clicking the "Clear Cart" button
     fireEvent.click(screen.getByText("Clear Cart"));
 
-    // Since the actual Redux action might not change the state in this mock setup,
-    // you would typically assert that the correct action was dispatched.
-    // For this, you can use the mock store's getActions method to check dispatched actions.
     const actions = emptyStore.getActions();
     expect(actions).toHaveLength(0);
   });
