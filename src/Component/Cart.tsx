@@ -72,7 +72,9 @@ const Cart: React.FC = () => {
 
   return (
     <>
-      <div className="product-list">{displayCartItems}</div>
+      <div data-testid="cart" className="product-list">
+        {displayCartItems}
+      </div>
       {currentItem.length ? cartButtonElements : null}
       <button id="clear_cart" onClick={clearCartHandler}>
         Clear Cart

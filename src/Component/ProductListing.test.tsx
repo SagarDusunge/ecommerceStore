@@ -86,4 +86,137 @@ describe("ProductListing", () => {
       expect(screen.queryByText("Product 1")).not.toBeInTheDocument();
     });
   });
+
+  it("test_ProductListing_no_products_message", async () => {
+    fetchMock.mockResponseOnce(JSON.stringify([]));
+
+    render(
+      <Provider store={store}>
+        <ProductListing />
+      </Provider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Fetching products.....")).toBeInTheDocument();
+    });
+  });
+
+  it("test_ProductListing_display_cart", async () => {
+    const customStore = mockStore({
+      displayCart: true,
+      cartItems: [
+        // Assuming cartItems needs to be non-empty as well, add at least one item here
+        {
+          id: 1,
+          title: "Product 1",
+          price: 100,
+          description: "Description 1",
+          category: "Category 1",
+          image: "ImageURL1",
+          rating: { rate: 4.5, count: 120 },
+        },
+        {
+          id: 2,
+          title: "Product 2",
+          price: 200,
+          description: "Description 2",
+          category: "Category 2",
+          image: "ImageURL2",
+          rating: { rate: 4.2, count: 90 },
+        },
+      ],
+    });
+    fetchMock.mockResponseOnce(
+      JSON.stringify([
+        {
+          id: 1,
+          title: "Product 1",
+          price: 100,
+          description: "Description 1",
+          category: "Category 1",
+          image: "ImageURL1",
+          rating: { rate: 4.5, count: 120 },
+        },
+        {
+          id: 2,
+          title: "Product 2",
+          price: 200,
+          description: "Description 2",
+          category: "Category 2",
+          image: "ImageURL2",
+          rating: { rate: 4.2, count: 90 },
+        },
+      ])
+    );
+
+    render(
+      <Provider store={customStore}>
+        <ProductListing />
+      </Provider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("cart")).toBeInTheDocument();
+    });
+  });
+
+  it("test_ProductListingPage_display_cart_when_displayCart_is_true_and_cartItems_not_empty", async () => {
+    const customStore = mockStore({
+      displayCart: true,
+      cartItems: [
+        // Assuming cartItems needs to be non-empty as well, add at least one item here
+        {
+          id: 1,
+          title: "Product 1",
+          price: 100,
+          description: "Description 1",
+          category: "Category 1",
+          image: "ImageURL1",
+          rating: { rate: 4.5, count: 120 },
+        },
+        {
+          id: 2,
+          title: "Product 2",
+          price: 200,
+          description: "Description 2",
+          category: "Category 2",
+          image: "ImageURL2",
+          rating: { rate: 4.2, count: 90 },
+        },
+      ],
+    });
+
+    fetchMock.mockResponseOnce(
+      JSON.stringify([
+        {
+          id: 1,
+          title: "Product 1",
+          price: 100,
+          description: "Description 1",
+          category: "Category 1",
+          image: "ImageURL1",
+          rating: { rate: 4.5, count: 120 },
+        },
+        {
+          id: 2,
+          title: "Product 2",
+          price: 200,
+          description: "Description 2",
+          category: "Category 2",
+          image: "ImageURL2",
+          rating: { rate: 4.2, count: 90 },
+        },
+      ])
+    );
+
+    render(
+      <Provider store={customStore}>
+        <ProductListing />
+      </Provider>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("cart")).toBeInTheDocument();
+    });
+  });
 });

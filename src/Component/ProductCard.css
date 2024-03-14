@@ -4,7 +4,6 @@
     overflow: hidden;
     align-items: center;
     margin: 5px;
-        /* padding: 5px; */
     height: 18vh;
     border: 2px solid rgb(232, 231, 231);
     border-radius: calc(15vh/10);
@@ -53,11 +52,13 @@
     background-color: rgb(242, 199, 142);
     border-radius: 7px;
     border: none;
-    }
+}
     
-    #title {
-        font-weight: 500;
-        font-size: larger;
+#title {
+    font-weight: 500;
+    font-size: 15px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
     .productInfo button:hover {
