@@ -14,6 +14,7 @@ const usePagination = (
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const { currentItem } = useMemo(() => {
+    if (!products.length) return { currentItem: [] };
     const lastIndex =
       currentPage <= 0
         ? 1
@@ -31,8 +32,8 @@ const usePagination = (
     if (updatedPageNo <= 0) {
       return setCurrentPage(1);
     }
-    if (updatedPageNo > Math.ceil(products.length / itemsPerPage)) {
-      return setCurrentPage(Math.ceil(products.length / itemsPerPage));
+    if (updatedPageNo > Math.ceil(products?.length / itemsPerPage)) {
+      return setCurrentPage(Math.ceil(products?.length / itemsPerPage));
     }
     setCurrentPage(updatedPageNo);
   };

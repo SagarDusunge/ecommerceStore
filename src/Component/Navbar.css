@@ -1,9 +1,27 @@
 .navbar_app {
     display: flex;
     justify-content: flex-start;
+    gap: 10rem;
 }
 
 .navbar_app h1 {
     margin: 5px;
     padding: 2px;
+}
+.search_submit {
+    display: flex;
+}
+
+#search_input {
+    width: 20rem;
+}
+
+#submit_search {
+    max-width: fit-content;
+    background-color: rgb(242, 199, 142);
+    border-left: none;
+}
+
+#submit_search:hover {
+    background-color: rgb(240, 167, 71);
 }

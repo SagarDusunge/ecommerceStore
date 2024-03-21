@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./../Store/store";
 
 const CartNote: React.FC = () => {
-  const count = useSelector((state: RootState) => state?.cartItems.length);
+  const count = useSelector((state: RootState) => state?.cartItems?.length);
   const dispatch = useDispatch();
 
   const cartClickHandler = (e: React.MouseEvent) => {
