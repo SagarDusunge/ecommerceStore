@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEventHandler } from "react";
 import ProductCard from "./ProductCard";
 import "./ProductListing.css";
 import { useSelector } from "react-redux";
@@ -6,6 +6,8 @@ import Cart from "./Cart";
 import { RootState } from "../Store/store";
 import fetchProducts from "../Util/fetchHelper";
 import usePagination from "../customHooks/usePagination";
+import Navbar from "./NavBar";
+import CartNote from "./CartNote";
 
 export type Product = {
   id: number;
@@ -23,14 +25,15 @@ export type Product = {
 
 const ProductListingPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const displayCart: boolean = useSelector(
     (state: RootState) => state?.displayCart
   );
   const itemsPerPage = 4;
-  const { currentItem, currentPage, updatePage } = usePagination(
-    products,
-    itemsPerPage
-  );
+  const { currentItem, currentPage, updatePage } = filteredProducts.length
+    ? usePagination(filteredProducts, itemsPerPage)
+    : usePagination(products, itemsPerPage);
+
   const productsToDisplay = displayCart ? (
     <Cart />
   ) : currentItem.length ? (
@@ -59,14 +62,36 @@ const ProductListingPage: React.FC = () => {
     <p>Fetching products.....</p>
   );
 
+  const searchInputHandler: ChangeEventHandler<HTMLInputElement> = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const filteredResult = products.filter((product: Product) =>
+      product.title
+        .toLowerCase()
+        .includes((e.target as HTMLInputElement).value.toLowerCase())
+    );
+    setFilteredProducts(filteredResult);
+    updatePage(1);
+  };
+
   useEffect(() => {
     // Fetch products from API or any data source
-    fetchProducts("https://fakestoreapi.com/products").then(
-      (data) => data && setProducts(data)
-    );
+    fetchProducts("https://fakestoreapi.com/products").then((data) => {
+      if (data) {
+        setProducts(data);
+      } else {
+        console.error("error fetching");
+      }
+    });
   }, []);
 
-  return <div style={{ width: "100% " }}>{productsToDisplay}</div>;
+  return (
+    <div style={{ width: "100% " }}>
+      <Navbar allProducts={products} searchInputHandler={searchInputHandler} />
+      <CartNote />
+      {productsToDisplay}
+    </div>
+  );
 };
 
 export default ProductListingPage;
